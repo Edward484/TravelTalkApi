@@ -1,5 +1,4 @@
-﻿using Lab2_DAW_Sgr16.Entities;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using TravelTalkApi.Entities;
 
 namespace TravelTalkApi.Data

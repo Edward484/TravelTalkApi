@@ -1,8 +1,6 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using TravelTalkApi.Entities;
+﻿using System.Collections.Generic;
 
-namespace Lab2_DAW_Sgr16.Entities
+namespace TravelTalkApi.Entities
 {
     public enum NotificationType
     {

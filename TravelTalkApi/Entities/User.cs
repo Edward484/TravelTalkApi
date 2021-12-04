@@ -1,6 +1,5 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using Lab2_DAW_Sgr16.Entities;
 
 namespace TravelTalkApi.Entities
 {

@@ -1,6 +1,4 @@
-﻿using Lab2_DAW_Sgr16.Entities;
-
-namespace TravelTalkApi.Entities
+﻿namespace TravelTalkApi.Entities
 {
     public class UserWithNotification
     {
