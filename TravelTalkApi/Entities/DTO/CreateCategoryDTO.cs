@@ -4,7 +4,7 @@ namespace TravelTalkApi.Entities.DTO
 {
     public class CreateCategoryDTO
     {
-        public CreateCategoryDTO(List<Topic> topics, string name)
+        public CreateCategoryDTO(string name)
         {
             Name = name;
         }

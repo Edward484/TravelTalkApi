@@ -3,6 +3,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using TravelTalkApi.Data;
 using TravelTalkApi.Entities;
 using TravelTalkApi.Entities.DTO;
 using TravelTalkApi.Repositories.CategoryRepository;
@@ -15,7 +16,7 @@ namespace TravelTalkApi.Controllers
     {
         private readonly ICategoryRepository _repository;
 
-        public CategoryController(ICategoryRepository repository)
+        public CategoryController(AppDbContext ctx,ICategoryRepository repository)
         {
             _repository = repository;
         }

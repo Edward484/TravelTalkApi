@@ -8,6 +8,7 @@ namespace TravelTalkApi.Repositories.CategoryRepository
     {
         public CategoryRepository(AppDbContext context) : base(context)
         {
+            
         }
     }
 }
