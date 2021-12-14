@@ -1,9 +1,15 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
+using TravelTalkApi.Data;
+using TravelTalkApi.Repositories.CategoryRepository;
+using TravelTalkApi.Repositories.NotificationRepository;
+using TravelTalkApi.Repositories.PostRepository;
+using TravelTalkApi.Repositories.TopicRepository;
 
 namespace TravelTalkApi
 {
@@ -23,10 +29,16 @@ namespace TravelTalkApi
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Lab2_DAW_Sgr16", Version = "v1" });
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "TravelTalk", Version = "v1" });
             });
             
             
+            services.AddDbContext<AppDbContext>(options => options.UseSqlServer("Server=localhost\\MSSQLSERVER01;Database=master;Trusted_Connection=True;"));
+            services.AddTransient<ICategoryRepository, CategoryRepository>();
+            services.AddTransient<INotificationRepository, NotificationRepository>();
+            services.AddTransient<IPostRepository, PostRepository>();
+            services.AddTransient<ITopicRepository, TopicRepository>();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
