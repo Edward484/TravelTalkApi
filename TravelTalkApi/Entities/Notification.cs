@@ -12,7 +12,7 @@ namespace TravelTalkApi.Entities
     public class Notification
     {
         public int NotificationId { get; set; }
-        public IEnumerable<User> Recievers { get; set; }
+        public virtual ICollection<User> Recievers { get; set; }
         public NotificationType Type { get; set; }
         /**
          * The post this notification is related to

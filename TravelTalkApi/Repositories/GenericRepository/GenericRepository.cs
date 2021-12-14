@@ -21,7 +21,7 @@ namespace TravelTalkApi.Repositories.GenericRepository
             _context.Set<TEntity>().Add(entity);
         }
 
-        public void CreateRange(IEnumerable<TEntity> entities)
+        public void CreateRange(ICollection<TEntity> entities)
         {
             _context.Set<TEntity>().AddRange(entities);
         }
@@ -31,7 +31,7 @@ namespace TravelTalkApi.Repositories.GenericRepository
             _context.Set<TEntity>().Remove(entity);
         }
 
-        public void DeleteRange(IEnumerable<TEntity> entities)
+        public void DeleteRange(ICollection<TEntity> entities)
         {
             _context.Set<TEntity>().RemoveRange(entities);
         }

@@ -12,8 +12,11 @@ namespace TravelTalkApi.Entities
         
         public string Username { get; set; }
         public string Hash { get; set; }
-        public IEnumerable<Post> Posts { get; set; }
-        public IEnumerable<Notification> Notifications { get; set; }
+        public ICollection<Post> Posts { get; set; }
+        public virtual ICollection<Notification> Notifications { get; set; }
         public int NewNotifications { get; set; }
+        
+        // A list of the categories this user is mod to
+        public virtual ICollection<Category> CategoryMod { get; set; }
     }
 }

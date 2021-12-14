@@ -16,7 +16,7 @@ namespace TravelTalkApi.Repositories.GenericRepository
         // Create
 
         void Create(TEntity entity);
-        void CreateRange(IEnumerable<TEntity> entities);
+        void CreateRange(ICollection<TEntity> entities);
 
         // Update
 
@@ -25,7 +25,7 @@ namespace TravelTalkApi.Repositories.GenericRepository
         // Delete
 
         void Delete(TEntity entity);
-        void DeleteRange(IEnumerable<TEntity> entities);
+        void DeleteRange(ICollection<TEntity> entities);
 
         // Save
         Task<bool> SaveAsync();
