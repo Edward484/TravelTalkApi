@@ -34,6 +34,7 @@ namespace TravelTalkApi.Controllers
             var categories =
                 await (expanded ? categoriesQuery.Include("Topics").ToListAsync() : categoriesQuery.ToListAsync());
 
+            //TODO: Make a CategoryExpandedDTO that extends CategoryDTO and adds the Topics property so we don't send an empty list back on non-expanded result
             var res = categories.Select(el => new CategoryDTO(el)).ToList();
 
             return res;
