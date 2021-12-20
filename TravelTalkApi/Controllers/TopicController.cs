@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using TravelTalkApi.Data;
-using TravelTalkApi.Entities.DTO.Topic;
+using TravelTalkApi.Entities.DTO;
 using TravelTalkApi.Repositories.TopicRepository;
 
 namespace TravelTalkApi.Controllers
@@ -20,12 +21,19 @@ namespace TravelTalkApi.Controllers
         
 
         [HttpGet("{id:int}")]
-        public async Task<ActionResult<TopicDTO>> GetTopicById(int id)
+        public async Task<IActionResult> GetTopicById(int id)
         {
-            //TODO: Check if a fail SELECT results in NULL or error
-            var Topic = await _repository.GetByIdAsync(id);
+            try
+            {
+                var Topic = await _repository.GetByIdAsync(id);
+                return new OkObjectResult(new TopicDTO(Topic));
+            }
+            catch (InvalidOperationException e)
+            {
+                return new NotFoundResult();
+            }
 
-            return new TopicDTO(Topic);
+         
         }
 
         //TODO: Implement

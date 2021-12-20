@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
@@ -20,11 +21,11 @@ namespace TravelTalkApi.Controllers
         {
             _repository = repository;
         }
-        
+
         /**
          * Get all categories
          * If the expanded query param is present, then the Categories will be joined with their topics
-         */ 
+         */
         [HttpGet]
         public async Task<ActionResult<List<CategoryDTO>>> GetAllCategories(
             [FromQuery(Name = "expanded")] bool expanded)
@@ -39,12 +40,18 @@ namespace TravelTalkApi.Controllers
         }
 
         [HttpGet("{id:int}")]
-        public async Task<ActionResult<CategoryDTO>> GetCategoryById(int id)
+        public async Task<IActionResult> GetCategoryById(int id)
         {
-            //TODO: Check if a fail SELECT results in NULL or error
-            var category = await _repository.GetByIdAsync(id);
+            try
+            {
+                var category = await _repository.GetByIdAsync(id);
 
-            return new CategoryDTO(category);
+                return new OkObjectResult(new CategoryDTO(category));
+            }
+            catch (InvalidOperationException e)
+            {
+                return new NotFoundResult();
+            }
         }
 
         [HttpPost]

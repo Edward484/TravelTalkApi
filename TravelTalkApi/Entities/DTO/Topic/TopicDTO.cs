@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-namespace TravelTalkApi.Entities.DTO.Topic
+namespace TravelTalkApi.Entities.DTO
 {
     public class TopicDTO
     {
