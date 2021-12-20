@@ -5,6 +5,10 @@ namespace TravelTalkApi.Entities
 {
     public class Topic
     {
+        public Topic()
+        {
+            Posts = new List<Post>();
+        }
         public int TopicId { get; set; }
         public string Title { get; set; }
         

@@ -16,21 +16,28 @@ namespace TravelTalkApi.Controllers
     {
         private readonly ICategoryRepository _repository;
 
-        public CategoryController(AppDbContext ctx,ICategoryRepository repository)
+        public CategoryController(AppDbContext ctx, ICategoryRepository repository)
         {
             _repository = repository;
         }
         
+        /**
+         * Get all categories
+         * If the expanded query param is present, then the Categories will be joined with their topics
+         */ 
         [HttpGet]
-        public async Task<ActionResult<List<CategoryDTO>>> GetAllCategories()
+        public async Task<ActionResult<List<CategoryDTO>>> GetAllCategories(
+            [FromQuery(Name = "expanded")] bool expanded)
         {
-            var categories = await _repository.GetAll().ToListAsync();
+            var categoriesQuery = _repository.GetAll();
+            var categories =
+                await (expanded ? categoriesQuery.Include("Topics").ToListAsync() : categoriesQuery.ToListAsync());
 
             var res = categories.Select(el => new CategoryDTO(el)).ToList();
 
             return res;
         }
-        
+
         [HttpGet("{id:int}")]
         public async Task<ActionResult<CategoryDTO>> GetCategoryById(int id)
         {
@@ -41,17 +48,18 @@ namespace TravelTalkApi.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<CategoryDTO>> CreateCAtegory(CreateCategoryDTO body)
+        public async Task<ActionResult<CategoryDTO>> CreateCategory(CreateCategoryDTO body)
         {
-            Category category = new Category();
-            category.Mods = new List<User>();
-            category.Name = body.Name;
-            category.Topics = new List<Topic>();
+            Category category = new Category
+            {
+                Mods = new List<User>(),
+                Name = body.Name,
+                Topics = new List<Topic>()
+            };
             _repository.Create(category);
             await _repository.SaveAsync();
 
             return new CategoryDTO(category);
         }
-
     }
 }

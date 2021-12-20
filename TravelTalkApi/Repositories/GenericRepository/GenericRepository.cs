@@ -41,7 +41,7 @@ namespace TravelTalkApi.Repositories.GenericRepository
             return _context.Set<TEntity>().AsNoTracking();
         }
 
-        public async Task<TEntity> GetByIdAsync(int id)
+        public virtual async Task<TEntity> GetByIdAsync(int id)
         {
             return await _context.Set<TEntity>().FindAsync(id);
         }

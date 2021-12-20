@@ -14,7 +14,7 @@ namespace TravelTalkApi.Entities
     public class Notification
     {
         public int NotificationId { get; set; }
-        public virtual ICollection<User> Recievers { get; set; }
+        public virtual ICollection<User> Receivers { get; set; }
         [Required]
         public NotificationType Type { get; set; }
         /**

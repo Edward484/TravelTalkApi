@@ -6,11 +6,17 @@ namespace TravelTalkApi.Entities
 {
     public class Category
     {
+        public Category()
+        {
+            Topics = new List<Topic>();
+        }
+
         public int CategoryId { get; set; }
         public ICollection<Topic> Topics { get; set; }
         [Required]
         public string Name { get; set; }
         
+        //TODO: Use
         public virtual ICollection<User> Mods { get; set; }
     }
 }

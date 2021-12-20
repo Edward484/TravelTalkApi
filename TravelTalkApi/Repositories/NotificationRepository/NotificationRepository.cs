@@ -22,7 +22,7 @@ namespace TravelTalkApi.Repositories.NotificationRepository
             ValueComparer<User> comparer = new ValueComparer<User>((a, b) => a.UserId == b.UserId,
                 usr => usr.GetHashCode());
             return await _context.Notifications.Where(notification =>
-                    notification.Recievers.Contains(user, comparer))
+                    notification.Receivers.Contains(user, comparer))
                 .ToListAsync();
         }
     }
