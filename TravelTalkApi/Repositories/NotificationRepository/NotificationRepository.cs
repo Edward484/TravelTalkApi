@@ -18,7 +18,7 @@ namespace TravelTalkApi.Repositories
 
         public async Task<List<Notification>> GetByUser(User user)
         {
-            ValueComparer<User> comparer = new ValueComparer<User>((a, b) => a.UserId == b.UserId,
+            ValueComparer<User> comparer = new ValueComparer<User>((a, b) => a.Id == b.Id,
                 usr => usr.GetHashCode());
             return await _context.Notifications.Where(notification =>
                     notification.Receivers.Contains(user, comparer))

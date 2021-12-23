@@ -14,12 +14,12 @@ namespace TravelTalkApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class AccountController : ControllerBase
+    public class AuthController : ControllerBase
     {
         private readonly UserManager<User> _userManager;
         private readonly IUserService _userService;
 
-        public AccountController(
+        public AuthController(
             UserManager<User> userManager,
             IUserService userService)
         {

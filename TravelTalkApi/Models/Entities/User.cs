@@ -12,8 +12,6 @@ namespace TravelTalkApi.Entities
             Posts = new List<Post>();
         }
 
-        public int UserId { get; set; }
-        
         // We need to define the associative Entity ourselves for the identity framework config
         public ICollection<UserRole> UserRoles { get; set; }
 

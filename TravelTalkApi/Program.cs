@@ -31,7 +31,7 @@ builder.Services.AddSwaggerGen();
 //Path to the db
 var folder = Environment.SpecialFolder.LocalApplicationData;
 var path = Environment.GetFolderPath(folder);
-var dbPath = System.IO.Path.Join(path, "travelTalk.db");
+var dbPath = System.IO.Path.Join(path, "travelTalkApi.db");
 builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlite($"Data Source={dbPath}"));
 
 
