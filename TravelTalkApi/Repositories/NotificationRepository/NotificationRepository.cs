@@ -6,9 +6,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using TravelTalkApi.Data;
 using TravelTalkApi.Entities;
-using TravelTalkApi.Repositories.GenericRepository;
 
-namespace TravelTalkApi.Repositories.NotificationRepository
+namespace TravelTalkApi.Repositories
 {
     public class NotificationRepository : GenericRepository<Notification>, INotificationRepository
 

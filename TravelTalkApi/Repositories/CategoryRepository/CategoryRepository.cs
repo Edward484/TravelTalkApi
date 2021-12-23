@@ -3,9 +3,8 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using TravelTalkApi.Data;
 using TravelTalkApi.Entities;
-using TravelTalkApi.Repositories.GenericRepository;
 
-namespace TravelTalkApi.Repositories.CategoryRepository
+namespace TravelTalkApi.Repositories
 {
     public class CategoryRepository : GenericRepository<Category>, ICategoryRepository
     {

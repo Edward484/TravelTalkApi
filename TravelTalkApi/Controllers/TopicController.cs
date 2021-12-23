@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using TravelTalkApi.Data;
 using TravelTalkApi.Entities.DTO;
-using TravelTalkApi.Repositories.TopicRepository;
+using TravelTalkApi.Repositories;
 
 namespace TravelTalkApi.Controllers
 {
@@ -12,9 +12,9 @@ namespace TravelTalkApi.Controllers
     [ApiController]
     public class TopicController
     {
-        private readonly ITopicRepository _repository;
+        private readonly IRepositoryWrapper _repository;
 
-        public TopicController(AppDbContext ctx, ITopicRepository repository)
+        public TopicController(AppDbContext ctx, IRepositoryWrapper repository)
         {
             _repository = repository;
         }
@@ -25,7 +25,7 @@ namespace TravelTalkApi.Controllers
         {
             try
             {
-                var Topic = await _repository.GetByIdAsync(id);
+                var Topic = await _repository.Topic.GetByIdAsync(id);
                 return new OkObjectResult(new TopicDTO(Topic));
             }
             catch (InvalidOperationException e)

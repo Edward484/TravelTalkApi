@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace TravelTalkApi.Repositories.GenericRepository
+namespace TravelTalkApi.Repositories
 {
     public interface IGenericRepository<TEntity>
     {

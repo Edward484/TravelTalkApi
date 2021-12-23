@@ -1,7 +1,6 @@
 ﻿using TravelTalkApi.Entities;
-using TravelTalkApi.Repositories.GenericRepository;
 
-namespace TravelTalkApi.Repositories.CategoryRepository
+namespace TravelTalkApi.Repositories
 {
     public interface ICategoryRepository: IGenericRepository<Category>
     {

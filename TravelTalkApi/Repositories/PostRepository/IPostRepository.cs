@@ -1,9 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using TravelTalkApi.Entities;
-using TravelTalkApi.Repositories.GenericRepository;
 
-namespace TravelTalkApi.Repositories.PostRepository
+namespace TravelTalkApi.Repositories
 {
     public interface IPostRepository:IGenericRepository<Post>
     {

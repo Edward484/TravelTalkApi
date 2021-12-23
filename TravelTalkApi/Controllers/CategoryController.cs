@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using TravelTalkApi.Data;
 using TravelTalkApi.Entities;
 using TravelTalkApi.Entities.DTO;
-using TravelTalkApi.Repositories.CategoryRepository;
+using TravelTalkApi.Repositories;
 
 namespace TravelTalkApi.Controllers
 {
@@ -15,9 +15,9 @@ namespace TravelTalkApi.Controllers
     [ApiController]
     public class CategoryController
     {
-        private readonly ICategoryRepository _repository;
+        private readonly IRepositoryWrapper _repository;
 
-        public CategoryController(AppDbContext ctx, ICategoryRepository repository)
+        public CategoryController(AppDbContext ctx, IRepositoryWrapper repository)
         {
             _repository = repository;
         }
@@ -30,7 +30,7 @@ namespace TravelTalkApi.Controllers
         public async Task<ActionResult<List<CategoryDTO>>> GetAllCategories(
             [FromQuery(Name = "expanded")] bool expanded)
         {
-            var categoriesQuery = _repository.GetAll();
+            var categoriesQuery = _repository.Category.GetAll();
             var categories =
                 await (expanded ? categoriesQuery.Include("Topics").ToListAsync() : categoriesQuery.ToListAsync());
 
@@ -45,7 +45,7 @@ namespace TravelTalkApi.Controllers
         {
             try
             {
-                var category = await _repository.GetByIdAsync(id);
+                var category = await _repository.Category.GetByIdAsync(id);
 
                 return new OkObjectResult(new CategoryDTO(category));
             }
@@ -64,7 +64,7 @@ namespace TravelTalkApi.Controllers
                 Name = body.Name,
                 Topics = new List<Topic>()
             };
-            _repository.Create(category);
+            _repository.Category.Create(category);
             await _repository.SaveAsync();
 
             return new CategoryDTO(category);

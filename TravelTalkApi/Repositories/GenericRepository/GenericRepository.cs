@@ -5,7 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using TravelTalkApi.Data;
 
-namespace TravelTalkApi.Repositories.GenericRepository
+namespace TravelTalkApi.Repositories
 {
     public class GenericRepository<TEntity> : IGenericRepository<TEntity> where TEntity : class
     { 

@@ -4,9 +4,8 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using TravelTalkApi.Data;
 using TravelTalkApi.Entities;
-using TravelTalkApi.Repositories.GenericRepository;
 
-namespace TravelTalkApi.Repositories.PostRepository
+namespace TravelTalkApi.Repositories
 {
     public class PostRepository:GenericRepository<Post>, IPostRepository
     {
