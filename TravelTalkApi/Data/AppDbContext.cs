@@ -17,7 +17,6 @@ namespace TravelTalkApi.Data
         public DbSet<Role> Roles { get; set; }
         public DbSet<Topic> Topics { get; set; }
         public DbSet<User> User { get; set; }
-        public DbSet<SessionToken> SessionTokens { get; set; }
 
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
         {

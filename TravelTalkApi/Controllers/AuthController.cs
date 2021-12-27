@@ -17,14 +17,14 @@ namespace TravelTalkApi.Controllers
     public class AuthController : ControllerBase
     {
         private readonly UserManager<User> _userManager;
-        private readonly IUserService _userService;
+        private readonly IAuthService _authService;
 
         public AuthController(
             UserManager<User> userManager,
-            IUserService userService)
+            IAuthService authService)
         {
             _userManager = userManager;
-            _userService = userService;
+            _authService = authService;
         }
 
         [HttpPost("register")]
@@ -38,7 +38,7 @@ namespace TravelTalkApi.Controllers
                 return BadRequest("The user already exists!"); 
             }
             
-            var result = await _userService.RegisterUserAsync(body);
+            var result = await _authService.RegisterUserAsync(body);
 
             if (result.Count == 0)
             {
@@ -52,14 +52,19 @@ namespace TravelTalkApi.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> Login([FromBody] LoginDTO body)
         {
-            var token = await _userService.LoginUser(body);
+            var token = await _authService.LoginUserAsync(body);
 
             if (token == null)
             {
                 return Unauthorized();
             }
 
+            //TODO: Return current user
             return Ok(new { token });
         }
+        
+        //TODO: Add logout
+        //TODO: Add current
+        //TODO: Add refresh
     }
 }

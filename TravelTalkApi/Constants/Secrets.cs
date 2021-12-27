@@ -2,6 +2,6 @@
 {
     public class Secrets
     {
-        public static readonly string AuthSignature = "h?D!bcphAmxB9nsDXiss7PPPyfo3!";
+            public static readonly string AuthSignature = "h?D!bcphAmxB9nsDXiss7PPPyfo3!";
     }
 }

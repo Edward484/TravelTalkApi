@@ -12,7 +12,6 @@ namespace TravelTalkApi.Repositories
         private INotificationRepository _notification;
         private IPostRepository _post;
         private ITopicRepository _topic;
-        private ISessionTokenRepository _sessionToken;
         private IUserRepository _user;
 
 
@@ -70,14 +69,6 @@ namespace TravelTalkApi.Repositories
                 }
 
                 return _topic;
-            }
-        }
-        public ISessionTokenRepository SessionToken
-        {
-            get
-            {
-                if (_sessionToken == null) _sessionToken = new SessionTokenRepository(_context);
-                return _sessionToken;
             }
         }
         public IUserRepository User

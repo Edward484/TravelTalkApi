@@ -1,6 +1,7 @@
 using System;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.DataProtection;
@@ -13,9 +14,9 @@ using TravelTalkApi.Constants;
 using TravelTalkApi.Data;
 using TravelTalkApi.Entities;
 using TravelTalkApi.Entities.Constants;
-using TravelTalkApi.Helpers;
 using TravelTalkApi.Repositories;
 using TravelTalkApi.Services;
+using TravelTalkApi.Utilities;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -39,11 +40,6 @@ builder.Services.AddIdentity<User, Role>()
     .AddEntityFrameworkStores<AppDbContext>()
     .AddDefaultTokenProviders();
 
-builder.Services.AddAuthorization(options =>
-{
-    options.AddPolicy(RoleType.Admin, policy => policy.RequireRole(RoleType.Admin));
-    options.AddPolicy(RoleType.User, policy => policy.RequireRole(RoleType.User));
-});
 
 builder.Services.AddAuthentication(auth =>
     {
@@ -51,26 +47,40 @@ builder.Services.AddAuthentication(auth =>
         auth.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
         auth.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
     })
-    .AddJwtBearer(options =>
+    .AddJwtBearer("AuthScheme", options =>
     {
         options.SaveToken = true;
-        options.TokenValidationParameters = new TokenValidationParameters
-        {
-            ValidateIssuer = false,
-            ValidateAudience = false,
-            ValidateLifetime = true,
-            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Secrets.AuthSignature)),
-            ValidateIssuerSigningKey = true
-        };
+        options.TokenValidationParameters = AuthConfig.JWTValidationConfig;
         options.Events = new JwtBearerEvents()
         {
-            OnTokenValidated = SessionTokenValidator.ValidateSessionToken
+            OnAuthenticationFailed = context =>
+            {
+                if (context.Exception.GetType() == typeof(SecurityTokenExpiredException))
+                {
+                    context.Response.Headers.Add("Token-Expired", "true");
+                }
+
+                return Task.CompletedTask;
+            }
         };
     });
 
-builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddAuthorization(opt =>
+{
+    opt.AddPolicy(RoleType.Admin,
+        policy => policy.RequireRole(RoleType.Admin).RequireAuthenticatedUser().AddAuthenticationSchemes("AuthScheme")
+            .Build());
+    opt.AddPolicy(RoleType.User,
+        policy => policy.RequireRole(RoleType.User).RequireAuthenticatedUser().AddAuthenticationSchemes("AuthScheme")
+            .Build());
+});
+
+
+builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<IRepositoryWrapper, RepositoryWrapper>();
 builder.Services.AddScoped<SeedDb>();
+builder.Services.AddSingleton<JWTUtils>();
+builder.Services.AddHttpContextAccessor();
 
 var app = builder.Build();
 
@@ -96,7 +106,7 @@ try
         seedService.SeedRoles().Wait();
     }
 }
-catch(Exception e)
+catch (Exception e)
 {
     Console.WriteLine(e.Message);
 }

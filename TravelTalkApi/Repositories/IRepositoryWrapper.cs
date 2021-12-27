@@ -8,7 +8,6 @@ namespace TravelTalkApi.Repositories
         INotificationRepository Notification { get; }
         IPostRepository PostRepository { get; }
         ITopicRepository Topic { get; }
-        ISessionTokenRepository SessionToken { get; }
         IUserRepository User { get; }
 
 

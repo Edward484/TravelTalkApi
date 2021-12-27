@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Security.Claims;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using TravelTalkApi.Data;
@@ -13,10 +15,12 @@ namespace TravelTalkApi.Controllers
     public class TopicController
     {
         private readonly IRepositoryWrapper _repository;
+        private readonly HttpContext? _httpContext;
 
-        public TopicController(AppDbContext ctx, IRepositoryWrapper repository)
+        public TopicController(AppDbContext ctx, IRepositoryWrapper repository,IHttpContextAccessor httpContextAccessor)
         {
             _repository = repository;
+            _httpContext = httpContextAccessor.HttpContext;
         }
         
 
@@ -38,8 +42,10 @@ namespace TravelTalkApi.Controllers
 
         //TODO: Implement
         [HttpPost]
+        [Authorize( "User")]
         public async Task<ActionResult<TopicDTO>> CreateTopic(CreateTopicDTO body)
         {
+            var claims = _httpContext?.User.Identity;
            // Create a service that extracts the user from the token and creates a topic based on the body with that user as the author
            throw new NotImplementedException();
         }
