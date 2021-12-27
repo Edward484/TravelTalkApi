@@ -25,20 +25,18 @@ namespace TravelTalkApi.Data
             var path = Environment.GetFolderPath(folder);
             DbPath = System.IO.Path.Join(path, "travelTalkApi.db");
         }
-        
+
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
 
             builder.Entity<UserRole>(ur =>
             {
-                ur.HasKey(ur => new { ur.UserId, ur.RoleId });
+                ur.HasKey(ur => new {ur.UserId, ur.RoleId});
 
                 ur.HasOne(ur => ur.Role).WithMany(r => r.UserRoles).HasForeignKey(ur => ur.RoleId);
                 ur.HasOne(ur => ur.User).WithMany(u => u.UserRoles).HasForeignKey(ur => ur.UserId);
             });
-            
-           
         }
     }
 }

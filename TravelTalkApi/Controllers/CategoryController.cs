@@ -2,10 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using TravelTalkApi.Data;
 using TravelTalkApi.Entities;
+using TravelTalkApi.Entities.Constants;
 using TravelTalkApi.Entities.DTO;
 using TravelTalkApi.Repositories;
 
@@ -56,6 +58,7 @@ namespace TravelTalkApi.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles="Admin")]
         public async Task<ActionResult<CategoryDTO>> CreateCategory(CreateCategoryDTO body)
         {
             Category category = new Category

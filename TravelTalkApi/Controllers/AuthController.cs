@@ -37,15 +37,15 @@ namespace TravelTalkApi.Controllers
             {
                 return BadRequest("The user already exists!"); 
             }
-
+            
             var result = await _userService.RegisterUserAsync(body);
 
-            if (result)
+            if (result.Count == 0)
             {
                 return Ok(result);
             }
 
-            return BadRequest();
+            return BadRequest(result);
         }
 
         [HttpPost("login")]

@@ -28,12 +28,12 @@ namespace TravelTalkApi.Services
             _repository = repository;
         }
 
-        public async Task<bool> RegisterUserAsync(RegisterDTO dto)
+        public async Task<List<IdentityError>> RegisterUserAsync(RegisterDTO dto)
         {
             var registerUser = new User();
 
             registerUser.Email = dto.Email;
-            registerUser.UserName = dto.Email;
+            registerUser.UserName = dto.Username;
 
             var result = await _userManager.CreateAsync(registerUser, dto.Password);
 
@@ -41,10 +41,10 @@ namespace TravelTalkApi.Services
             {
                 await _userManager.AddToRoleAsync(registerUser, RoleType.User);
 
-                return true;
+                return new List<IdentityError>();
             }
 
-            return false;
+            return result.Errors.ToList();
         }
 
         public async Task<string> LoginUser(LoginDTO dto)

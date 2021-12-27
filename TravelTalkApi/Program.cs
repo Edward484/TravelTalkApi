@@ -89,9 +89,12 @@ app.MapControllers();
 
 try
 {
-    // TODO: Test that seeding works
-    var seed = (SeedDb)builder.Services.FirstOrDefault(service => service.ServiceType == typeof(SeedDb))?.ImplementationInstance;
-    seed?.SeedRoles().Wait();
+    using (var serviceScope = app.Services.CreateScope())
+    {
+        var services = serviceScope.ServiceProvider;
+        var seedService = services.GetRequiredService<SeedDb>();
+        seedService.SeedRoles().Wait();
+    }
 }
 catch(Exception e)
 {
