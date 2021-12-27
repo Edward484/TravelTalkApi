@@ -8,6 +8,7 @@ using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 using TravelTalkApi.Constants;
+using TravelTalkApi.Constants.Exceptions;
 using TravelTalkApi.Entities;
 using TravelTalkApi.Entities.Constants;
 using TravelTalkApi.Models.DTO.Auth;
@@ -64,7 +65,7 @@ namespace TravelTalkApi.Services
                 var isPasswordRight = await _signInManager.CheckPasswordSignInAsync(user, loginData.Password, false);
                 if (!isPasswordRight.Succeeded)
                 {
-                    throw new Exception("Login failed. Wrong password");
+                    throw new Exception(AuthExceptionStrings.WrongPassword);
                 }
                 var userWithRoles = await _repository.User.GetByIdWithRoles(user.Id);
                 
@@ -80,7 +81,7 @@ namespace TravelTalkApi.Services
                 };
             }
 
-            throw new Exception("Failed login");
+            throw new Exception(AuthExceptionStrings.UserNotFound);
         }
 
         public async Task<string> RefreshAccessTokenAsync(RefreshDTO refresh)
