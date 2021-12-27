@@ -16,6 +16,7 @@ using TravelTalkApi.Entities;
 using TravelTalkApi.Entities.Constants;
 using TravelTalkApi.Repositories;
 using TravelTalkApi.Services;
+using TravelTalkApi.Services.UserService;
 using TravelTalkApi.Utilities;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -80,6 +81,7 @@ builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<IRepositoryWrapper, RepositoryWrapper>();
 builder.Services.AddScoped<SeedDb>();
 builder.Services.AddSingleton<JWTUtils>();
+builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddHttpContextAccessor();
 
 var app = builder.Build();

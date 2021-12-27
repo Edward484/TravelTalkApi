@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using TravelTalkApi.Data;
 using TravelTalkApi.Entities.DTO;
 using TravelTalkApi.Repositories;
+using TravelTalkApi.Services.UserService;
 
 namespace TravelTalkApi.Controllers
 {
@@ -15,14 +16,14 @@ namespace TravelTalkApi.Controllers
     public class TopicController
     {
         private readonly IRepositoryWrapper _repository;
-        private readonly HttpContext? _httpContext;
+        private readonly IUserService _userService;
 
-        public TopicController(AppDbContext ctx, IRepositoryWrapper repository,IHttpContextAccessor httpContextAccessor)
+        public TopicController(AppDbContext ctx, IRepositoryWrapper repository, IUserService userService)
         {
             _repository = repository;
-            _httpContext = httpContextAccessor.HttpContext;
+            _userService = userService;
         }
-        
+
 
         [HttpGet("{id:int}")]
         public async Task<IActionResult> GetTopicById(int id)
@@ -36,18 +37,16 @@ namespace TravelTalkApi.Controllers
             {
                 return new NotFoundResult();
             }
-
-         
         }
 
         //TODO: Implement
         [HttpPost]
-        [Authorize( "User")]
+        [Authorize("User")]
         public async Task<ActionResult<TopicDTO>> CreateTopic(CreateTopicDTO body)
         {
-            var claims = _httpContext?.User.Identity;
-           // Create a service that extracts the user from the token and creates a topic based on the body with that user as the author
-           throw new NotImplementedException();
+            var currentUser = await _userService.GetCurrentUser();
+            // Create a service that extracts the user from the token and creates a topic based on the body with that user as the author
+            throw new NotImplementedException();
         }
     }
 }
