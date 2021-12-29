@@ -197,11 +197,19 @@ namespace TravelTalkApi.Migrations
                     b.Property<int>("TopicId")
                         .HasColumnType("INTEGER");
 
+                    b.Property<int>("UpvoteCount")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int?>("UserId")
+                        .HasColumnType("INTEGER");
+
                     b.HasKey("PostId");
 
                     b.HasIndex("AuthorId");
 
                     b.HasIndex("TopicId");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("Posts");
                 });
@@ -446,6 +454,10 @@ namespace TravelTalkApi.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("TravelTalkApi.Entities.User", null)
+                        .WithMany("UpvotedPosts")
+                        .HasForeignKey("UserId");
+
                     b.Navigation("Author");
 
                     b.Navigation("Topic");
@@ -507,6 +519,8 @@ namespace TravelTalkApi.Migrations
             modelBuilder.Entity("TravelTalkApi.Entities.User", b =>
                 {
                     b.Navigation("Posts");
+
+                    b.Navigation("UpvotedPosts");
 
                     b.Navigation("UserRoles");
                 });

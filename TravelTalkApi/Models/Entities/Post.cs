@@ -3,7 +3,6 @@ using System.ComponentModel.DataAnnotations;
 
 namespace TravelTalkApi.Entities
 {
-   //TODO: Add upvotes
     public class Post
     {
         public int PostId { get; set; }
@@ -22,5 +21,7 @@ namespace TravelTalkApi.Entities
         public Topic Topic { get; set; }
         
         public string ImageURL { get; set; }
+        
+        public int UpvoteCount { get; set; }
     }
 }

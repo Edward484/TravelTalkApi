@@ -5,12 +5,12 @@ using Microsoft.AspNetCore.Identity;
 
 namespace TravelTalkApi.Entities
 {
-    //Add upvotes
-    public class User:IdentityUser<int>
+    public class User : IdentityUser<int>
     {
-        public User():base()
+        public User() : base()
         {
             Posts = new List<Post>();
+            UpvotedPosts = new List<Post>();
         }
 
         // We need to define the associative Entity ourselves for the identity framework config
@@ -24,5 +24,7 @@ namespace TravelTalkApi.Entities
         public virtual ICollection<Category> CategoryMod { get; set; }
 
         public string RefreshToken { get; set; }
+
+        public ICollection<Post> UpvotedPosts { get; set; }
     }
 }

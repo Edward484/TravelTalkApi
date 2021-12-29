@@ -36,6 +36,9 @@ namespace TravelTalkApi.Data
                 ur.HasOne(ur => ur.Role).WithMany(r => r.UserRoles).HasForeignKey(ur => ur.RoleId);
                 ur.HasOne(ur => ur.User).WithMany(u => u.UserRoles).HasForeignKey(ur => ur.UserId);
             });
+
+            builder.Entity<Post>(postEntityBuilder => postEntityBuilder.HasOne(post => post.Author)
+                .WithMany(user => user.Posts).HasForeignKey(post => post.AuthorId));
         }
     }
 }

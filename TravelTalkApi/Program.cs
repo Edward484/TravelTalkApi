@@ -85,8 +85,8 @@ builder.Services.AddScoped<SeedDb>();
 builder.Services.AddSingleton<JWTUtils>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddHttpContextAccessor();
-builder.Services.AddSingleton<ITopicAuthorPolicy, TopicAuthorPolicy>();
-builder.Services.AddSingleton<INotificationService, NotificationService>();
+builder.Services.AddScoped<ITopicAuthorPolicy, TopicAuthorPolicy>();
+builder.Services.AddScoped<INotificationService, NotificationService>();
 
 var app = builder.Build();
 
