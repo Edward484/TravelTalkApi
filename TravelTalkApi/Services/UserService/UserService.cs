@@ -12,9 +12,9 @@ namespace TravelTalkApi.Services.UserService
         private readonly HttpContext? _httpContext;
         private readonly IRepositoryWrapper _repository;
 
-        public UserService(HttpContext? httpContext,IRepositoryWrapper repositoryWrapper)
+        public UserService(IHttpContextAccessor httpContextAccessor,IRepositoryWrapper repositoryWrapper)
         {
-            _httpContext = httpContext;
+            _httpContext = httpContextAccessor.HttpContext;
             _repository = repositoryWrapper;
         }
 

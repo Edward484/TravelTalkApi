@@ -58,7 +58,7 @@ namespace TravelTalkApi.Controllers
         }
 
         [HttpPost]
-        [Authorize(Roles="Admin")]
+        [Authorize("Admin")]
         public async Task<ActionResult<CategoryDTO>> CreateCategory(CreateCategoryDTO body)
         {
             Category category = new Category

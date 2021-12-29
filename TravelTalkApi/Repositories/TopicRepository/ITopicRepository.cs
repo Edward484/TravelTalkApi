@@ -8,5 +8,6 @@ namespace TravelTalkApi.Repositories
     {
         public Task<List<Topic>> GetByAuthorId(int authorId);
         public Task<List<Topic>> GetByCategoryId(int categoryId);
+
     }
 }

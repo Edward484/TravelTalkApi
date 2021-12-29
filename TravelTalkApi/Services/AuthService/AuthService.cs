@@ -72,8 +72,8 @@ namespace TravelTalkApi.Services
                 //Generate a refresh token and save it into the db
                 var refreshToken = _jwtUtils.CreateRefreshToken();
 
-                user.RefreshToken = refreshToken;
-                await _userManager.UpdateAsync(user);
+                userWithRoles.RefreshToken = refreshToken;
+                await _userManager.UpdateAsync(userWithRoles);
                 return new LoginResponseDTO()
                 {
                     AccessToken = _jwtUtils.GenerateJwtToken(userWithRoles),
