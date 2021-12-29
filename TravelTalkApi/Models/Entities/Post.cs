@@ -3,6 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace TravelTalkApi.Entities
 {
+   //TODO: Add upvotes
     public class Post
     {
         public int PostId { get; set; }

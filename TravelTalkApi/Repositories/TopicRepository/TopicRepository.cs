@@ -28,5 +28,13 @@ namespace TravelTalkApi.Repositories
             var query = this._context.Topics.Where(topic => topic.TopicId == id);
             return expanded ? query.Include("Posts").FirstAsync() : query.FirstAsync();
         }
+
+        public async Task<List<User>> GetParticipantsAsync(int topicId)
+        {
+            var topic = await this._context.Topics.Where(topic => topic.TopicId == topicId)
+                .Include(topic => topic.Posts)
+                .ThenInclude(post => post.Author).FirstAsync();
+            return topic.Posts.Select(post => post.Author).DistinctBy(user => user.Id).ToList();
+        }
     }
 }

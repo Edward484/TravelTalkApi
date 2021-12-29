@@ -17,6 +17,7 @@ using TravelTalkApi.Entities;
 using TravelTalkApi.Entities.Constants;
 using TravelTalkApi.Repositories;
 using TravelTalkApi.Services;
+using TravelTalkApi.Services.NotificationService;
 using TravelTalkApi.Services.UserService;
 using TravelTalkApi.Utilities;
 
@@ -85,6 +86,7 @@ builder.Services.AddSingleton<JWTUtils>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddSingleton<ITopicAuthorPolicy, TopicAuthorPolicy>();
+builder.Services.AddSingleton<INotificationService, NotificationService>();
 
 var app = builder.Build();
 

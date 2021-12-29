@@ -8,5 +8,6 @@ namespace TravelTalkApi.Repositories
     {
         public Task<List<Post>> GetByAuthorId(int authorId);
         public Task<List<Post>> GetByTopicId(int topicId);
+        public Task<Post> GetByIdAsync(int postId, bool expanded);
     }
 }

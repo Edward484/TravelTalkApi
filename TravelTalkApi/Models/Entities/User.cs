@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Identity;
 
 namespace TravelTalkApi.Entities
 {
+    //Add upvotes
     public class User:IdentityUser<int>
     {
         public User():base()

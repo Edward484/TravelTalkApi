@@ -10,5 +10,6 @@ namespace TravelTalkApi.Repositories
         public Task<List<Topic>> GetByCategoryId(int categoryId);
 
         public Task<Topic> GetByIdAsync(int id, bool expanded);
+        public Task<List<User>> GetParticipantsAsync(int topicId);
     }
 }

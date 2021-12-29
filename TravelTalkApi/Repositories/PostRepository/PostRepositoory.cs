@@ -7,7 +7,7 @@ using TravelTalkApi.Entities;
 
 namespace TravelTalkApi.Repositories
 {
-    public class PostRepository:GenericRepository<Post>, IPostRepository
+    public class PostRepository : GenericRepository<Post>, IPostRepository
     {
         public PostRepository(AppDbContext context) : base(context)
         {
@@ -21,7 +21,12 @@ namespace TravelTalkApi.Repositories
         public async Task<List<Post>> GetByTopicId(int topicId)
         {
             return await this._context.Posts.Where(post => post.TopicId == topicId).ToListAsync();
+        }
 
+        public Task<Post> GetByIdAsync(int postId, bool expanded)
+        {
+            var query = this._context.Set<Post>().Where(post => post.PostId == postId);
+            return expanded ? query.Include("Author").FirstAsync() : query.FirstAsync();
         }
     }
 }
