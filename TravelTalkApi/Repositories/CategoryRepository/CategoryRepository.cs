@@ -26,5 +26,11 @@ namespace TravelTalkApi.Repositories
             return
                 expanded ? categoriesQuery.Include("Topics").ToListAsync() : categoriesQuery.ToListAsync();
         }
+
+        public Task<Category> GetByIdWithModesAsync(int id)
+        {
+            return this._context.Set<Category>().Where(category => category.CategoryId == id).Include("Mods")
+                .FirstAsync();
+        }
     }
 }
