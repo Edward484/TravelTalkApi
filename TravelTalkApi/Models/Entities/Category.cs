@@ -15,8 +15,7 @@ namespace TravelTalkApi.Entities
         public ICollection<Topic> Topics { get; set; }
         [Required]
         public string Name { get; set; }
-        
-        //TODO: Use
+
         public virtual ICollection<User> Mods { get; set; }
     }
 }
