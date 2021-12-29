@@ -88,5 +88,23 @@ namespace TravelTalkApi.Controllers
             // Status 204
             return new NoContentResult();
         }
+        [HttpPatch("{topicId:int}")]
+        [Authorize("User")]
+        public async Task<IActionResult> DeleteTopic(int topicId)
+        {
+            var (canAccess, topic) = await _topicAuthorPolicy.CanAccess(topicId);
+            if (!canAccess)
+            {
+                return new ForbidResult();
+            }
+            
+            _repository.Topic.Delete(topic);
+            await _repository.SaveAsync();
+            
+            // Status 204
+            return new NoContentResult();
+        }
     }
+    
+    
 }
