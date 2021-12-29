@@ -61,7 +61,6 @@ namespace TravelTalkApi.Controllers
                     return Unauthorized();
                 }
 
-                //TODO: Return current user
                 return Ok(authInfo);
             }
             catch (Exception e)
@@ -81,8 +80,16 @@ namespace TravelTalkApi.Controllers
             }
         }
 
-        //TODO: Add logout
+        public async Task<IActionResult> Refresh(RefreshDTO body)
+        {
+            var newAccessToken = await _authService.RefreshAccessTokenAsync(body);
+            return new OkObjectResult(new LoginResponseDTO()
+            {
+                AccessToken = newAccessToken,
+                RefreshToken = body.RefreshToken
+            });
+        }
+
         //TODO: Add current
-        //TODO: Add refresh
     }
 }
