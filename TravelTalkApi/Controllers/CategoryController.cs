@@ -32,10 +32,7 @@ namespace TravelTalkApi.Controllers
         public async Task<ActionResult<List<CategoryDTO>>> GetAllCategories(
             [FromQuery(Name = "expanded")] bool expanded)
         {
-            var categoriesQuery = _repository.Category.GetAll();
-            var categories =
-                await (expanded ? categoriesQuery.Include("Topics").ToListAsync() : categoriesQuery.ToListAsync());
-
+            var categories = await _repository.Category.GetAll(expanded);
             //TODO: Make a CategoryExpandedDTO that extends CategoryDTO and adds the Topics property so we don't send an empty list back on non-expanded result
             var res = categories.Select(el => new CategoryDTO(el)).ToList();
 

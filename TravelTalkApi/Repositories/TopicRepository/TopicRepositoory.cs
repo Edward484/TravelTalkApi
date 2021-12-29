@@ -22,6 +22,11 @@ namespace TravelTalkApi.Repositories
         {
             return await this._context.Topics.Where(topic => topic.CategoryId == categoryId).ToListAsync();
         }
-        
+
+        public Task<Topic> GetByIdAsync(int id, bool expanded)
+        {
+            var query = this._context.Topics.Where(topic => topic.TopicId == id);
+            return expanded ? query.Include("Posts").FirstAsync() : query.FirstAsync();
+        }
     }
 }

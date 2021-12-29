@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using TravelTalkApi.Data;
@@ -17,6 +18,13 @@ namespace TravelTalkApi.Repositories
             //Include the topics in the query
 
             return this._context.Categories.Include("Topics").Where(categ => categ.CategoryId == id).FirstAsync();
+        }
+
+        public Task<List<Category>> GetAll(bool expanded)
+        {
+            var categoriesQuery = this._context.Set<Category>().AsNoTracking();
+            return
+                expanded ? categoriesQuery.Include("Topics").ToListAsync() : categoriesQuery.ToListAsync();
         }
     }
 }

@@ -21,7 +21,8 @@ namespace TravelTalkApi.Controllers
         private readonly IUserService _userService;
         private readonly ITopicAuthorPolicy _topicAuthorPolicy;
 
-        public TopicController(AppDbContext ctx, IRepositoryWrapper repository, IUserService userService,ITopicAuthorPolicy topicAuthorPolicy)
+        public TopicController(AppDbContext ctx, IRepositoryWrapper repository, IUserService userService,
+            ITopicAuthorPolicy topicAuthorPolicy)
         {
             _repository = repository;
             _userService = userService;
@@ -30,12 +31,12 @@ namespace TravelTalkApi.Controllers
 
 
         [HttpGet("{id:int}")]
-        public async Task<IActionResult> GetTopicById(int id)
+        public async Task<IActionResult> GetTopicById(int id, [FromQuery(Name = "expanded")] bool expanded)
         {
             try
             {
-                var Topic = await _repository.Topic.GetByIdAsync(id);
-                return new OkObjectResult(new TopicDTO(Topic));
+                var topic = await _repository.Topic.GetByIdAsync(id,expanded);
+                return new OkObjectResult(new TopicDTO(topic));
             }
             catch (InvalidOperationException e)
             {
@@ -81,13 +82,14 @@ namespace TravelTalkApi.Controllers
             }
 
             topic.Description = body.Description;
-            
+
             _repository.Topic.Update(topic);
             await _repository.SaveAsync();
-            
+
             // Status 204
             return new NoContentResult();
         }
+
         [HttpPatch("{topicId:int}")]
         [Authorize("User")]
         public async Task<IActionResult> DeleteTopic(int topicId)
@@ -97,14 +99,12 @@ namespace TravelTalkApi.Controllers
             {
                 return new ForbidResult();
             }
-            
+
             _repository.Topic.Delete(topic);
             await _repository.SaveAsync();
-            
+
             // Status 204
             return new NoContentResult();
         }
     }
-    
-    
 }

@@ -4,10 +4,11 @@ using TravelTalkApi.Entities;
 
 namespace TravelTalkApi.Repositories
 {
-    public interface ITopicRepository:IGenericRepository<Topic>
+    public interface ITopicRepository : IGenericRepository<Topic>
     {
         public Task<List<Topic>> GetByAuthorId(int authorId);
         public Task<List<Topic>> GetByCategoryId(int categoryId);
 
+        public Task<Topic> GetByIdAsync(int id, bool expanded);
     }
 }
