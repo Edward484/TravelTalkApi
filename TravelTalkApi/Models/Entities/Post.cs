@@ -22,6 +22,7 @@ namespace TravelTalkApi.Entities
         
         public string ImageURL { get; set; }
         
+        [Required]
         public int UpvoteCount { get; set; }
     }
 }
