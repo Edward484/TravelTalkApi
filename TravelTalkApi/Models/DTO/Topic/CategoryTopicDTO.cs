@@ -6,7 +6,7 @@
         {
             TopicId = topic.TopicId;
             Title = topic.Title;
-            Author = topic.Author;
+            AuthorId = topic.AuthorId;
             Description =topic.Description;
             CategoryId = topic.CategoryId;
         }
@@ -14,7 +14,7 @@
         public int TopicId { get; set; }
         public string Title { get; set; }
 
-        public User Author { get; set; }
+        public int AuthorId { get; set; }
 
         public string Description { get; set; }
 
