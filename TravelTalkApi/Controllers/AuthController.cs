@@ -61,13 +61,15 @@ namespace TravelTalkApi.Controllers
                     return Unauthorized();
                 }
 
+                Response.Headers.AccessControlAllowOrigin = "*";
+
                 return Ok(authInfo);
             }
             catch (Exception e)
             {
                 if (e.Message.Equals(AuthExceptionStrings.WrongPassword))
                 {
-                    return BadRequest(e.Message);
+                    return Unauthorized(e.Message);
                 }
                 else if (e.Message.Equals(AuthExceptionStrings.UserNotFound))
                 {
