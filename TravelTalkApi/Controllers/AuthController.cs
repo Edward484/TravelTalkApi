@@ -91,7 +91,5 @@ namespace TravelTalkApi.Controllers
                 RefreshToken = body.RefreshToken
             });
         }
-
-        //TODO: Add current
     }
 }
