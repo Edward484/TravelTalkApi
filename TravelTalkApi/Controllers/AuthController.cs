@@ -39,6 +39,11 @@ namespace TravelTalkApi.Controllers
                 return BadRequest("The user already exists!");
             }
 
+            if (body.Username == "")
+            {
+                return BadRequest("Username can't be empty");
+            }
+
             var result = await _authService.RegisterUserAsync(body);
 
             if (result.Count == 0)
