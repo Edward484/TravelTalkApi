@@ -59,7 +59,7 @@ namespace TravelTalkApi.Controllers
         [Authorize("Admin")]
         public async Task<ActionResult<CategoryDTO>> CreateCategory(CreateCategoryDTO body)
         {
-            Category category = new Category
+            Category category = new()
             {
                 Mods = new List<User>(),
                 Name = body.Name,

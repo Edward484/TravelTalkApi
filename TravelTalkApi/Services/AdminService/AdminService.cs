@@ -11,6 +11,12 @@ namespace TravelTalkApi.Services.AdminService
         private readonly UserManager<User> _userManager;
         private readonly IRepositoryWrapper _repositoryWrapper;
 
+        public AdminService(UserManager<User> userManager, IRepositoryWrapper repositoryWrapper)
+        {
+            _userManager = userManager;
+            _repositoryWrapper = repositoryWrapper;
+        }
+
         public async void GiveUserRole(string username, string role)
         {
             var user = await _repositoryWrapper.User.GetByUsernameWithRoles(username);
