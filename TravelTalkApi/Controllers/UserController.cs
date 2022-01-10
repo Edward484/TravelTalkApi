@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using TravelTalkApi.Entities;
@@ -22,6 +23,7 @@ namespace TravelTalkApi.Controllers
         }
 
         [HttpGet("/current")]
+        [Authorize("User")]
         public async Task<IActionResult> GetCurrentUser()
         {
             try
