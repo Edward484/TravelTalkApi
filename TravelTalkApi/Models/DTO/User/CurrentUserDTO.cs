@@ -15,7 +15,10 @@ namespace TravelTalkApi.Models.DTO.User
             Posts = user.Posts.Select(post => post.PostId).ToList();
             Notifications = user.Notifications.ToList();
             NewNotifications = user.NewNotifications;
-            CategoryMod = user.CategoryMod.Select(categ => categ.CategoryId).ToList();
+
+            CategoryMod = user.CategoryMod != null
+                ? user.CategoryMod.Select(categ => categ.CategoryId).ToList()
+                : new List<int>();
         }
 
         public string Email { get; set; }

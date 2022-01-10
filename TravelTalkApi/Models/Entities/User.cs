@@ -21,7 +21,7 @@ namespace TravelTalkApi.Entities
         [Required] public int NewNotifications { get; set; }
 
         // A list of the categories this user is mod to
-        public virtual ICollection<Category> CategoryMod { get; set; }
+        public virtual ICollection<Category>? CategoryMod { get; set; }
 
         public string? RefreshToken { get; set; }
 

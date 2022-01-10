@@ -22,7 +22,7 @@ namespace TravelTalkApi.Controllers
             _userService = userService;
         }
 
-        [HttpGet("/current")]
+        [HttpGet("current")]
         [Authorize("User")]
         public async Task<IActionResult> GetCurrentUser()
         {
