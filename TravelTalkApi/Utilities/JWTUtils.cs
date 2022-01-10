@@ -14,7 +14,7 @@ namespace TravelTalkApi.Utilities
 {
     public class JWTUtils
     {
-        public string GenerateJwtToken( User user)
+        public string GenerateJwtToken(User user)
         {
             var signinkey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Secrets.AuthSignature
             ));
@@ -42,8 +42,8 @@ namespace TravelTalkApi.Utilities
 
             var token = tokenHandler.CreateToken(tokenDescriptor);
             return tokenHandler.WriteToken(token);
-
         }
+
         public string CreateRefreshToken()
         {
             var randomNumber = new byte[32];
@@ -61,11 +61,11 @@ namespace TravelTalkApi.Utilities
 
             var principal = tokenHandler.ValidateToken(_Token, AuthConfig.JWTValidationConfig, out securityToken);
             var jwtSecurityToken = securityToken as JwtSecurityToken;
-            if (jwtSecurityToken == null || !jwtSecurityToken.Header.Alg.Equals("hs512", StringComparison.InvariantCultureIgnoreCase))
+            if (jwtSecurityToken == null ||
+                !jwtSecurityToken.Header.Alg.Equals("hs512", StringComparison.InvariantCultureIgnoreCase))
                 throw new SecurityTokenException("Invalid token");
 
             return principal;
         }
-        
     }
 }

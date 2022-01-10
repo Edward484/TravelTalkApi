@@ -22,45 +22,45 @@ namespace TravelTalkApi.Controllers
             _adminService = adminService;
         }
 
-        [HttpPost("/admin")]
+        [HttpPost("admin")]
         public async Task<IActionResult> MakeAdmin(AdminDTO body)
         {
-            _adminService.GiveUserRole(body.UserId, RoleType.Admin);
+            _adminService.GiveUserRole(body.Username, RoleType.Admin);
             return new NoContentResult();
         }
 
-        [HttpDelete("/admin")]
+        [HttpDelete("admin")]
         public async Task<IActionResult> RemoveAdmin(AdminDTO body)
         {
-            _adminService.RemoveUserRole(body.UserId, RoleType.Admin);
+            _adminService.RemoveUserRole(body.Username, RoleType.Admin);
             return new NoContentResult();
         }
 
-        [HttpPost("/mod")]
+        [HttpPost("mod")]
         public async Task<IActionResult> MakeMod(AdminDTO body)
         {
-            _adminService.GiveUserRole(body.UserId, RoleType.Mod);
+            _adminService.GiveUserRole(body.Username, RoleType.Mod);
             return new NoContentResult();
         }
 
-        [HttpDelete("/mod")]
+        [HttpDelete("mod")]
         public async Task<IActionResult> RemoveMod(AdminDTO body)
         {
-            _adminService.RemoveUserRole(body.UserId, RoleType.Mod);
+            _adminService.RemoveUserRole(body.Username, RoleType.Mod);
             return new NoContentResult();
         }
 
-        [HttpPost("/mod/{categoryId:int}")]
+        [HttpPost("mod/{categoryId:int}")]
         public async Task<IActionResult> MakeCategoryMod(AdminDTO body, int categoryId)
         {
-            _adminService.MakeUserCategoryMod(body.UserId, categoryId);
+            _adminService.MakeUserCategoryMod(body.Username, categoryId);
             return new NoContentResult();
         }
 
-        [HttpDelete("/mod/{categoryId:int}")]
+        [HttpDelete("mod/{categoryId:int}")]
         public async Task<IActionResult> RemoveAdmin(AdminDTO body, int categoryId)
         {
-            _adminService.RemoveUserCategoryMod(body.UserId, categoryId);
+            _adminService.RemoveUserCategoryMod(body.Username, categoryId);
             return new NoContentResult();
         }
     }

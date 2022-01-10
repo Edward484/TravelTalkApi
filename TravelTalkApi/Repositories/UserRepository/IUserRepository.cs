@@ -12,6 +12,9 @@ namespace TravelTalkApi.Repositories
         Task<List<User>> GetAllUsers();
         Task<User> GetUsersByEmail(string email);
         Task<User?> GetByIdWithRoles(int id);
+
+        Task<User?> GetByUsernameWithRoles(string username);
+
         // Get all the data for the user
         Task<User> GetByIdComplete(int id);
     }

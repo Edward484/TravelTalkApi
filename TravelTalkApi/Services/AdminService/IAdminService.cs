@@ -5,9 +5,9 @@ namespace TravelTalkApi.Services.AdminService
 {
     public interface IAdminService
     {
-        public void GiveUserRole(int userId, string role);
-        public void RemoveUserRole(int userId, string role);
-        public void MakeUserCategoryMod(int userId, int categoryId);
-        public void RemoveUserCategoryMod(int userId, int categoryId);
+        public void GiveUserRole(string username, string role);
+        public void RemoveUserRole(string username, string role);
+        public void MakeUserCategoryMod(string username, int categoryId);
+        public void RemoveUserCategoryMod(string username, int categoryId);
     }
 }

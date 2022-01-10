@@ -72,11 +72,13 @@ namespace TravelTalkApi.Services
                 //Generate a refresh token and save it into the db
                 var refreshToken = _jwtUtils.CreateRefreshToken();
 
+                //TODO: Don't regenerate refresh token if one already exists
                 userWithRoles.RefreshToken = refreshToken;
                 await _userManager.UpdateAsync(userWithRoles);
                 return new LoginResponseDTO()
                 {
                     AccessToken = _jwtUtils.GenerateJwtToken(userWithRoles),
+                    //TODO: Send current refresh token
                     RefreshToken = _jwtUtils.CreateRefreshToken()
                 };
             }

@@ -2,11 +2,11 @@
 {
     public class AdminDTO
     {
-        public AdminDTO(int userId)
+        public AdminDTO(string username)
         {
-            UserId = userId;
+            Username = username;
         }
 
-        public int UserId { get; set; }
+        public string Username { get; set; }
     }
 }

@@ -11,22 +11,22 @@ namespace TravelTalkApi.Services.AdminService
         private readonly UserManager<User> _userManager;
         private readonly IRepositoryWrapper _repositoryWrapper;
 
-        public async void GiveUserRole(int userId, string role)
+        public async void GiveUserRole(string username, string role)
         {
-            var user = await _repositoryWrapper.User.GetByIdWithRoles(userId);
+            var user = await _repositoryWrapper.User.GetByUsernameWithRoles(username);
             await _userManager.AddToRoleAsync(user, role);
         }
 
-        public async void RemoveUserRole(int userId, string role)
+        public async void RemoveUserRole(string username, string role)
         {
-            var user = await _repositoryWrapper.User.GetByIdWithRoles(userId);
+            var user = await _repositoryWrapper.User.GetByUsernameWithRoles(username);
             await _userManager.RemoveFromRoleAsync(user, role);
         }
         
 
-        public async void MakeUserCategoryMod(int userId, int categoryId)
+        public async void MakeUserCategoryMod(string username, int categoryId)
         {
-            var user = await _repositoryWrapper.User.GetByIdWithRoles(userId);
+            var user = await _repositoryWrapper.User.GetByUsernameWithRoles(username);
             if (user.UserRoles.All(role => role.Role.Name != RoleType.CategoryMod))
             {
                 await _userManager.AddToRoleAsync(user, RoleType.CategoryMod);
@@ -37,9 +37,9 @@ namespace TravelTalkApi.Services.AdminService
             await _repositoryWrapper.SaveAsync();
         }
 
-        public async void RemoveUserCategoryMod(int userId, int categoryId)
+        public async void RemoveUserCategoryMod(string username, int categoryId)
         {
-            var user = await _repositoryWrapper.User.GetByIdWithRoles(userId);
+            var user = await _repositoryWrapper.User.GetByUsernameWithRoles(username);
             if (user.UserRoles.Any(role => role.Role.Name != RoleType.CategoryMod))
             {
                 await _userManager.RemoveFromRoleAsync(user, RoleType.CategoryMod);

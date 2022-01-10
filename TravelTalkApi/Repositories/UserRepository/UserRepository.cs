@@ -27,6 +27,14 @@ namespace TravelTalkApi.Repositories
                 .FirstOrDefaultAsync(u => u.Id.Equals(id));
         }
 
+        public async Task<User?> GetByUsernameWithRoles(string username)
+        {
+            return await _context.Users
+                .Include(u => u.UserRoles)
+                .ThenInclude(ur => ur.Role)
+                .FirstOrDefaultAsync(u => u.UserName.Equals(username));
+        }
+
         public Task<User> GetByIdComplete(int id)
         {
             return _context.Users.Include(u => u.UserRoles).ThenInclude(ur => ur.Role)
