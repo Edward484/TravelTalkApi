@@ -15,7 +15,7 @@ namespace TravelTalkApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class TopicController
+    public class TopicController : ControllerBase
     {
         private readonly IRepositoryWrapper _repository;
         private readonly IUserService _userService;

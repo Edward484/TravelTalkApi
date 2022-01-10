@@ -1,10 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using TravelTalkApi.Constants.Exceptions;
 using TravelTalkApi.Entities;
@@ -86,7 +83,7 @@ namespace TravelTalkApi.Controllers
                 }
             }
         }
-
+        [HttpPost("refresh")]
         public async Task<IActionResult> Refresh(RefreshDTO body)
         {
             var newAccessToken = await _authService.RefreshAccessTokenAsync(body);

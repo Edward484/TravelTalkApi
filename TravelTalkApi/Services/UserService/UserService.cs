@@ -7,12 +7,12 @@ using TravelTalkApi.Repositories;
 
 namespace TravelTalkApi.Services.UserService
 {
-    public class UserService:IUserService
+    public class UserService : IUserService
     {
         private readonly HttpContext? _httpContext;
         private readonly IRepositoryWrapper _repository;
 
-        public UserService(IHttpContextAccessor httpContextAccessor,IRepositoryWrapper repositoryWrapper)
+        public UserService(IHttpContextAccessor httpContextAccessor, IRepositoryWrapper repositoryWrapper)
         {
             _httpContext = httpContextAccessor.HttpContext;
             _repository = repositoryWrapper;
@@ -27,6 +27,17 @@ namespace TravelTalkApi.Services.UserService
             }
 
             return _repository.User.GetUsersByEmail(email);
+        }
+
+        public Task<User> GetCurrentUserJoinedData()
+        {
+            var id = _httpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            if (id == null)
+            {
+                throw new Exception("User not found");
+            }
+
+            return _repository.User.GetByIdComplete(Int32.Parse(id));
         }
     }
 }

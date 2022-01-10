@@ -39,6 +39,8 @@ namespace TravelTalkApi.Data
 
             builder.Entity<Post>(postEntityBuilder => postEntityBuilder.HasOne(post => post.Author)
                 .WithMany(user => user.Posts).HasForeignKey(post => post.AuthorId));
+            
+         // TODO: Join for upvotes   
         }
     }
 }

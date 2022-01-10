@@ -16,7 +16,7 @@ namespace TravelTalkApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class CategoryController
+    public class CategoryController : ControllerBase
     {
         private readonly IRepositoryWrapper _repository;
 

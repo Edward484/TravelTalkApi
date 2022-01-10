@@ -6,5 +6,6 @@ namespace TravelTalkApi.Services.UserService
     public interface IUserService
     {
         public Task<User> GetCurrentUser();
+        public Task<User> GetCurrentUserJoinedData();
     }
 }

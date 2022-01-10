@@ -9,9 +9,11 @@ using TravelTalkApi.Services.AdminService;
 
 namespace TravelTalkApi.Controllers
 {
+    
     [Microsoft.AspNetCore.Components.Route("api/[controller]")]
     [ApiController]
-    public class AdminController
+    //TODO: Add authorization
+    public class AdminController : ControllerBase
     {
         private IAdminService _adminService;
 
