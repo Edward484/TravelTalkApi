@@ -90,7 +90,7 @@ namespace TravelTalkApi.Controllers
             return new NoContentResult();
         }
 
-        [HttpPatch("{topicId:int}")]
+        [HttpDelete("{topicId:int}")]
         [Authorize("User")]
         public async Task<IActionResult> DeleteTopic(int topicId)
         {
