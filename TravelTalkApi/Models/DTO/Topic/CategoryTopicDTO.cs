@@ -7,8 +7,12 @@
             TopicId = topic.TopicId;
             Title = topic.Title;
             AuthorId = topic.AuthorId;
-            Description =topic.Description;
+            Description = topic.Description;
             CategoryId = topic.CategoryId;
+            if (topic.Author != null)
+            {
+                AuthorUsername = topic.Author.UserName;
+            }
         }
 
         public int TopicId { get; set; }
@@ -19,5 +23,7 @@
         public string Description { get; set; }
 
         public int CategoryId { get; set; }
+
+        public string? AuthorUsername { get; set; }
     }
 }

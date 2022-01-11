@@ -17,7 +17,8 @@ namespace TravelTalkApi.Repositories
         {
             //Include the topics in the query
 
-            return this._context.Categories.Include("Topics").Where(categ => categ.CategoryId == id).FirstAsync();
+            return this._context.Categories.Include(category => category.Topics).ThenInclude(topic => topic.Author)
+                .Where(categ => categ.CategoryId == id).FirstAsync();
         }
 
         public Task<List<Category>> GetAll(bool expanded)
