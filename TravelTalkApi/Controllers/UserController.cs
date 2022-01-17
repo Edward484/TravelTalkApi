@@ -15,11 +15,15 @@ namespace TravelTalkApi.Controllers
     public class UserController : ControllerBase
     {
         private readonly IUserService _userService;
+        private readonly IRepositoryWrapper _repository;
+
 
         public UserController(
-            IUserService userService)
+            IUserService userService,
+            IRepositoryWrapper repository)
         {
             _userService = userService;
+            _repository = repository;
         }
 
         [HttpGet("current")]
@@ -35,6 +39,25 @@ namespace TravelTalkApi.Controllers
             {
                 return new NotFoundResult();
             }
+        }
+
+        [HttpPatch("change")]
+        [Authorize("User")]
+        public async Task<IActionResult> ChangeCurrentUser(ChangeUserDTO body)
+        {
+            try
+            {
+                var currentUserId = await _userService.GetCurrentUserId();
+                _repository.User.UpdateUserName(body.NewUsername, int.Parse(currentUserId));
+                await _repository.SaveAsync();
+
+            }
+            catch (Exception e)
+            {
+                return new NotFoundResult();
+            }
+
+            return new NoContentResult();
         }
     }
 }

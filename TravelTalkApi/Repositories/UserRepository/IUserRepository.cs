@@ -17,5 +17,8 @@ namespace TravelTalkApi.Repositories
 
         // Get all the data for the user
         Task<User> GetByIdComplete(int id);
+        public void UpdateUserName(string newUserName, int id);
+
+
     }
 }

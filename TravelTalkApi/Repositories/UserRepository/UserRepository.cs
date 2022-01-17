@@ -46,5 +46,11 @@ namespace TravelTalkApi.Repositories
         {
             return await _context.Users.FirstOrDefaultAsync(u => u.Email.Equals(email));
         }
+
+        public void UpdateUserName(string newUserName, int id)
+        {
+            var user = _context.User.Where(u => u.Id == id).FirstOrDefault();
+            user.UserName = newUserName;
+        }
     }
 }

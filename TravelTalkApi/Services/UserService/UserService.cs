@@ -28,6 +28,16 @@ namespace TravelTalkApi.Services.UserService
 
             return _repository.User.GetUsersByEmail(email);
         }
+        
+        public async Task<string> GetCurrentUserId()
+        {
+            var id = _httpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            if (id == null)
+            {
+                throw new Exception("User not found");
+            }
+            return id;
+        }
 
         public Task<User> GetCurrentUserJoinedData()
         {
@@ -39,5 +49,7 @@ namespace TravelTalkApi.Services.UserService
 
             return _repository.User.GetByIdComplete(Int32.Parse(id));
         }
+        
+        
     }
 }
