@@ -48,7 +48,7 @@ namespace TravelTalkApi.Controllers
         
         [HttpPost]
         [Authorize("User")]
-        public async Task<ActionResult<PostDTO>> CreateCategory(CreatePostDTO body)
+        public async Task<ActionResult<PostDTO>> CreatePost(CreatePostDTO body)
         {
             try
             {
@@ -74,7 +74,7 @@ namespace TravelTalkApi.Controllers
         
         [HttpDelete("{postId:int}")]
         [Authorize("User")]
-        public async Task<IActionResult> DeleteTopic(int postId)
+        public async Task<IActionResult> DeletePost(int postId)
         {
             var (canAccess, post) = await _postAuthorPolicy.CanAccess(postId);
             if (!canAccess)

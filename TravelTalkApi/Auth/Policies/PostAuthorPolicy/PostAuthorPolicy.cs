@@ -33,7 +33,10 @@ namespace TravelTalkApi.Auth.Policies.PostAuthorPolicy
                 return new AccessPolicyResult<Post>(false, post);
             }
         }
-        //TODO Implement acces for moderators
+        //TODO Implement aces for moderators
+        //verific daca user e moderator - role 2?:)
+        //verific daca e categoryModerator. 
+        //CategoryMod verfic daca categoria selectata in acesta lista
         
     }
 }

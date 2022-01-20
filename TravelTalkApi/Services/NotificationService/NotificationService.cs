@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using TravelTalkApi.Entities;
 using TravelTalkApi.Repositories;
 
@@ -57,6 +58,12 @@ namespace TravelTalkApi.Services.NotificationService
             };
             _repositoryWrapper.Notification.Create(notification);
             await _repositoryWrapper.SaveAsync();
+        }
+
+        public async Task<List<Notification>> GetAllUserNotification(User user)
+        {
+            var listNotifications = await _repositoryWrapper.Notification.GetByUser(user);
+            return listNotifications;
         }
     }
 }

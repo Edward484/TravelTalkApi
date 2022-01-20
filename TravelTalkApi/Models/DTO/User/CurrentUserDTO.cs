@@ -24,7 +24,7 @@ namespace TravelTalkApi.Models.DTO.User
         public string Email { get; set; }
         public string Username { get; set; }
         public List<int> Posts { get; set; }
-        public List<Notification> Notifications { get; set; }
+        public List<Entities.Notification> Notifications { get; set; }
         public int NewNotifications { get; set; }
         public List<int> Roles { get; set; }
         public List<int> UpVotes { get; set; }

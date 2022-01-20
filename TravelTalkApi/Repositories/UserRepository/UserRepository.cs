@@ -52,5 +52,8 @@ namespace TravelTalkApi.Repositories
             var user = _context.User.Where(u => u.Id == id).FirstOrDefault();
             user.UserName = newUserName;
         }
+        
+        
+        
     }
 }

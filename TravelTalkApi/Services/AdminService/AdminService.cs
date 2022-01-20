@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using TravelTalkApi.Entities;
 using TravelTalkApi.Entities.Constants;
@@ -56,5 +57,8 @@ namespace TravelTalkApi.Services.AdminService
             category.Mods.Remove(userFromMods);
             await _repositoryWrapper.SaveAsync();
         }
+
+        
+        
     }
 }
