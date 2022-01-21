@@ -70,5 +70,42 @@ namespace TravelTalkApi.Controllers
 
             return new CategoryDTO(category);
         }
+
+        [HttpPatch]
+        [Authorize("Admin")]
+        public async Task<ActionResult> ChangeCategoryName(int categId, string newName)
+        {
+            try
+            {
+                _repository.Category.UpdateName(categId, newName);
+                await _repository.SaveAsync();
+
+                return new OkResult();
+            }
+            catch (Exception e)
+            {
+                return new NotFoundResult();
+            }
+
+
+        }
+        
+        [HttpDelete]
+        [Authorize("Admin")]
+        public async Task<ActionResult> DeleteCategory(int categId)
+        {
+            try
+            {
+                var category = await _repository.Category.GetByIdAsync(categId);
+                _repository.Category.Delete(category);
+                await _repository.SaveAsync();
+
+                return new OkResult();
+            }
+            catch (Exception e)
+            {
+                return new NotFoundResult();
+            }
+        }
     }
 }

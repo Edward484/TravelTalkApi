@@ -4,8 +4,10 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using TravelTalkApi.Entities;
+using TravelTalkApi.Models.DTO.Auth;
 using TravelTalkApi.Models.DTO.User;
 using TravelTalkApi.Repositories;
+using TravelTalkApi.Services;
 using TravelTalkApi.Services.UserService;
 
 namespace TravelTalkApi.Controllers
@@ -16,14 +18,22 @@ namespace TravelTalkApi.Controllers
     {
         private readonly IUserService _userService;
         private readonly IRepositoryWrapper _repository;
+        private readonly UserManager<User> _userManager;
+        private readonly IAuthService _authService;
+
+
 
 
         public UserController(
             IUserService userService,
-            IRepositoryWrapper repository)
+            IRepositoryWrapper repository,
+            UserManager<User> userManager,
+            IAuthService authService)
         {
             _userService = userService;
             _repository = repository;
+            _userManager = userManager;
+            _authService = authService;
         }
 
         [HttpGet("current")]
@@ -40,6 +50,33 @@ namespace TravelTalkApi.Controllers
                 return new NotFoundResult();
             }
         }
+
+        [HttpPost]
+        [Authorize("Admin")]
+        public async Task<ActionResult> CreateUserManual(RegisterDTO body)
+        {
+            var user = await _userManager.FindByEmailAsync(body.Email);
+
+            if (user != null)
+            {
+                return BadRequest("The user already exists!");
+            }
+
+            if (body.Username == "")
+            {
+                return BadRequest("Username can't be empty");
+            }
+            
+            var result = await _authService.RegisterUserAsync(body);
+
+            if (result.Count == 0)
+            {
+                return Ok(result);
+            }
+
+            return BadRequest(result);
+        }
+        
 
         [HttpPatch("change")]
         [Authorize("User")]
@@ -58,6 +95,23 @@ namespace TravelTalkApi.Controllers
             }
 
             return new NoContentResult();
+        }
+
+        [HttpDelete]
+        [Authorize("User")]
+        public async Task<ActionResult> DeleteUser(int userId)
+        {
+            try
+            {
+                var user = await _repository.User.GetByIdComplete(userId);
+                _repository.User.Delete(user);
+                await _repository.SaveAsync();
+                return new OkResult();
+            }
+            catch (Exception e)
+            {
+                return new NotFoundResult();
+            }
         }
     }
 }

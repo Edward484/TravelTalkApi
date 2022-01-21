@@ -7,8 +7,9 @@ namespace TravelTalkApi.Entities
     public enum NotificationType
     {
         COMMENT = 0,
-        DELETE = 1,
-        UPVOTE = 2
+        UPVOTE = 1,
+        WARNING = 2,
+        ALERT = 3
     }
 
     public class Notification
@@ -27,10 +28,6 @@ namespace TravelTalkApi.Entities
         [Required]
         public int TopicId { get; set; }
         public Topic Topic { get; set; }
-        /**
-         * A preview of the post if this is a Comment notif
-         * A message from the mod that deleted the post if it's a delete
-         */
-        public string Extra { get; set; }
+        
     }
 }

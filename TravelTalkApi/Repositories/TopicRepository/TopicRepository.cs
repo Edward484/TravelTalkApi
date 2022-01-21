@@ -36,5 +36,6 @@ namespace TravelTalkApi.Repositories
                 .ThenInclude(post => post.Author).FirstAsync();
             return topic.Posts.Select(post => post.Author).DistinctBy(user => user.Id).ToList();
         }
+        
     }
 }

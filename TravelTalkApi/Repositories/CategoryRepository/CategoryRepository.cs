@@ -28,10 +28,22 @@ namespace TravelTalkApi.Repositories
                 expanded ? categoriesQuery.Include("Topics").ToListAsync() : categoriesQuery.ToListAsync();
         }
 
-        public Task<Category> GetByIdWithModesAsync(int id)
+        public Task<Category> GetByIdWithModsAsync(int id)
         {
             return this._context.Set<Category>().Where(category => category.CategoryId == id).Include("Mods")
                 .FirstAsync();
+        }
+
+        public async Task<Category> GetByTopicId(int id)
+        {
+            var res = await this._context.Set<Topic>().Where(topic => topic.TopicId == id).Include("Category").FirstOrDefaultAsync();
+            return res.Category;
+        }
+        
+        public async void UpdateName(int id, string newName)
+        {
+            var post = await _context.Categories.Where(p => p.CategoryId == id).FirstOrDefaultAsync();
+            post.Name = newName;
         }
     }
 }

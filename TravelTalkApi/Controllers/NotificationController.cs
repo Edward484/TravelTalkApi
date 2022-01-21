@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using TravelTalkApi.Entities;
 using TravelTalkApi.Models.DTO.Notification;
+using TravelTalkApi.Repositories;
 using TravelTalkApi.Services.NotificationService;
 using TravelTalkApi.Services.UserService;
 
@@ -17,11 +18,16 @@ namespace TravelTalkApi.Controllers
     {
         private readonly IUserService _userService;
         private readonly INotificationService _notificationService;
+        private readonly IRepositoryWrapper _repositoryWrapper;
 
-        public NotificationController( IUserService userService, INotificationService notificationService)
+        public NotificationController( 
+            IUserService userService, 
+            INotificationService notificationService,
+            IRepositoryWrapper repositoryWrapper)
         {
             _userService = userService;
             _notificationService = notificationService;
+            _repositoryWrapper = repositoryWrapper;
         }
 
         [HttpGet("current")]
@@ -50,6 +56,55 @@ namespace TravelTalkApi.Controllers
                 return new NotFoundResult();
             }
         }
+
+        [HttpPost]
+        [Authorize("Admin, Mod")]
+        public async Task<ActionResult> SendWarningNotificationToAuthor(int postId)
+        {
+            try
+            {
+                _notificationService.SendWarningNotificationToAuthor(postId);
+                return new OkResult();
+            }
+            catch (Exception e)
+            {
+                return new NotFoundResult();
+            }
+        }
+
+
+        [HttpPatch]
+        [Authorize("Admin")]
+        public async Task<ActionResult> ChangeNotificationType(int notificationId)
+        {
+            try
+            {
+                _notificationService.ChangeNotificationType(notificationId);
+                return new OkResult();
+            }
+            catch (Exception e)
+            {
+                return new NotFoundResult();
+            }
+        }
+
+        [HttpDelete]
+        [Authorize("Admin")]
+        public async Task<ActionResult> DeleteNotification(int notificationId)
+        {
+            try
+            {
+                _notificationService.DeleteNotification(notificationId);
+                await _repositoryWrapper.SaveAsync();
+                return new OkResult();
+            }
+            catch (Exception e)
+            {
+                return new NotFoundResult();
+            }
+        }
+        
+        
 
         
     }

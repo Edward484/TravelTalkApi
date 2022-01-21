@@ -10,6 +10,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
+using TravelTalkApi.Auth.Policies.PostAuthorPolicy;
 using TravelTalkApi.Auth.Policies.TopicAuthorPolicy;
 using TravelTalkApi.Constants;
 using TravelTalkApi.Data;
@@ -19,6 +20,7 @@ using TravelTalkApi.Repositories;
 using TravelTalkApi.Services;
 using TravelTalkApi.Services.AdminService;
 using TravelTalkApi.Services.NotificationService;
+using TravelTalkApi.Services.PostService;
 using TravelTalkApi.Services.UserService;
 using TravelTalkApi.Utilities;
 
@@ -94,7 +96,9 @@ builder.Services.AddSingleton<JWTUtils>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddScoped<ITopicAuthorPolicy, TopicAuthorPolicy>();
+builder.Services.AddScoped<IPostAuthorPolicy, PostAuthorPolicy>();
 builder.Services.AddScoped<INotificationService, NotificationService>();
+builder.Services.AddScoped<IPostService, PostService>();
 builder.Services.AddScoped<IAdminService, AdminService>();
 
 var app = builder.Build();

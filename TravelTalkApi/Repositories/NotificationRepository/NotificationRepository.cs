@@ -24,5 +24,10 @@ namespace TravelTalkApi.Repositories
                     notification.Receivers.Contains(user, comparer))
                 .ToListAsync();
         }
+
+        public async Task<Notification> GetById(int id)
+        {
+            return await _context.Notifications.Where(n => n.NotificationId == id).FirstAsync();
+        }
     }
 }

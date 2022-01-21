@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Identity;
 
 namespace TravelTalkApi.Entities
 {
-    public class User : IdentityUser<int>
+    public class User : IdentityUser<int>, IEnumerable
     {
         public User() : base()
         {
@@ -26,5 +26,9 @@ namespace TravelTalkApi.Entities
         public string? RefreshToken { get; set; }
 
         public ICollection<Post> UpvotedPosts { get; set; }
+        public IEnumerator GetEnumerator()
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

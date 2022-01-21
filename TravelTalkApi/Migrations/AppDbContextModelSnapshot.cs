@@ -152,10 +152,6 @@ namespace TravelTalkApi.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<string>("Extra")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
                     b.Property<int?>("PostId")
                         .HasColumnType("INTEGER");
 

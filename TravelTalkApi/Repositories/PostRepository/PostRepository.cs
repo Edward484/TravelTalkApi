@@ -28,5 +28,11 @@ namespace TravelTalkApi.Repositories
             var query = this._context.Set<Post>().Where(post => post.PostId == postId);
             return expanded ? query.Include("Author").FirstAsync() : query.FirstAsync();
         }
+
+        public async void UpdateContent(int id, string newContent)
+        {
+            var post = await _context.Posts.Where(p => p.PostId == id).FirstOrDefaultAsync();
+            post.Content = newContent;
+        }
     }
 }

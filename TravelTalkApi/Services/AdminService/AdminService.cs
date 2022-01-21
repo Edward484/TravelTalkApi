@@ -39,7 +39,7 @@ namespace TravelTalkApi.Services.AdminService
                 await _userManager.AddToRoleAsync(user, RoleType.CategoryMod);
             }
 
-            var category = await _repositoryWrapper.Category.GetByIdWithModesAsync(categoryId);
+            var category = await _repositoryWrapper.Category.GetByIdWithModsAsync(categoryId);
             category.Mods.Add(user);
             await _repositoryWrapper.SaveAsync();
         }
@@ -52,7 +52,7 @@ namespace TravelTalkApi.Services.AdminService
                 await _userManager.RemoveFromRoleAsync(user, RoleType.CategoryMod);
             }
 
-            var category = await _repositoryWrapper.Category.GetByIdWithModesAsync(categoryId);
+            var category = await _repositoryWrapper.Category.GetByIdWithModsAsync(categoryId);
             var userFromMods = category.Mods.First(mod => mod.Id == user.Id);
             category.Mods.Remove(userFromMods);
             await _repositoryWrapper.SaveAsync();
