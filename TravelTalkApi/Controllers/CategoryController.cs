@@ -57,7 +57,7 @@ namespace TravelTalkApi.Controllers
 
         [HttpPost]
         [Authorize("Admin")]
-        public async Task<ActionResult<CategoryDTO>> CreateCategory(CreateCategoryDTO body)
+        public async Task<ActionResult<CategoryDTO>> CreateCategory([FromBody]CreateCategoryDTO body)
         {
             Category category = new()
             {
@@ -73,7 +73,7 @@ namespace TravelTalkApi.Controllers
 
         [HttpPatch]
         [Authorize("Admin")]
-        public async Task<ActionResult> ChangeCategoryName(ChangeCategoryDTO body)
+        public async Task<ActionResult> ChangeCategoryName([FromBody]ChangeCategoryDTO body)
         {
             try
             {
@@ -92,7 +92,7 @@ namespace TravelTalkApi.Controllers
         
         [HttpDelete]
         [Authorize("Admin")]
-        public async Task<ActionResult> DeleteCategory( CategoryIdDTO body)
+        public async Task<ActionResult> DeleteCategory([FromBody]CategoryIdDTO body)
         {
             try
             {

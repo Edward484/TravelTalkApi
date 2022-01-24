@@ -113,5 +113,7 @@ namespace TravelTalkApi.Controllers
                 return new NotFoundResult();
             }
         }
+        
+        //TODO: PATCH edit username
     }
 }

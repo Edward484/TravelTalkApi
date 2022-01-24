@@ -110,7 +110,7 @@ namespace TravelTalkApi.Controllers
             }
         }
         
-        [HttpDelete("current")]
+        [HttpDelete("current/{postId:int}")]
         [Authorize("User")]
         public async Task<IActionResult> DeletePost(int postId)
         {

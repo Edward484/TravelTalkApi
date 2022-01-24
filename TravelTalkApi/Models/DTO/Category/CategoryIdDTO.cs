@@ -2,9 +2,9 @@
 {
     public class CategoryIdDTO
     {
-        public CategoryIdDTO(Category category)
+        public CategoryIdDTO(int categoryId)
         {
-            CategoryId = category.CategoryId;
+            CategoryId = categoryId;
         }
 
         public int CategoryId { get; set; }

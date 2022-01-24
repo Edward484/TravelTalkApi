@@ -8,6 +8,7 @@ namespace TravelTalkApi.Entities.DTO
         {
             Name = name;
         }
+        
 
         public string Name { get; set; }
     }

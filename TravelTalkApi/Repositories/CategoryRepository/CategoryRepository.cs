@@ -36,14 +36,18 @@ namespace TravelTalkApi.Repositories
 
         public async Task<Category> GetByTopicId(int id)
         {
-            var res = await this._context.Set<Topic>().Where(topic => topic.TopicId == id).Include("Category").FirstOrDefaultAsync();
+            var res = await this._context.Set<Topic>().Where(topic => topic.TopicId == id).Include("Category")
+                .FirstOrDefaultAsync();
             return res.Category;
         }
-        
+
         public async void UpdateName(int id, string newName)
         {
             var post = await _context.Categories.Where(p => p.CategoryId == id).FirstOrDefaultAsync();
-            post.Name = newName;
+            if (post != null)
+            {
+                post.Name = newName;
+            }
         }
     }
 }

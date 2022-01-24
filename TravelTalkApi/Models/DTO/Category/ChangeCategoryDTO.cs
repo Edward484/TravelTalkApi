@@ -1,16 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.Json.Serialization;
 
 namespace TravelTalkApi.Entities.DTO
 {
     public class ChangeCategoryDTO
     {
-        public ChangeCategoryDTO(Category category)
+        [JsonConstructor]
+        public ChangeCategoryDTO(int categoryId, string newName)
         {
-            CategoryId = category.CategoryId;
-            newName = category.Name;
-
+            CategoryId = categoryId;
+            this.newName = newName;
         }
 
         public int CategoryId { get; set; }
