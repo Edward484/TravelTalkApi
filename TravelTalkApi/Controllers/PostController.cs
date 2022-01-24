@@ -92,7 +92,8 @@ namespace TravelTalkApi.Controllers
                 return new NotFoundResult();
             }
         }
-        
+        [HttpPatch]
+        [Authorize("User")]
         public async Task<IActionResult> UpVotePost(int postId)
         {
             try

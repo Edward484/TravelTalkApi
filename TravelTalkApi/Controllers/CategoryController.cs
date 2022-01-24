@@ -73,11 +73,11 @@ namespace TravelTalkApi.Controllers
 
         [HttpPatch]
         [Authorize("Admin")]
-        public async Task<ActionResult> ChangeCategoryName(int categId, string newName)
+        public async Task<ActionResult> ChangeCategoryName(ChangeCategoryDTO body)
         {
             try
             {
-                _repository.Category.UpdateName(categId, newName);
+                _repository.Category.UpdateName(body.CategoryId, body.newName);
                 await _repository.SaveAsync();
 
                 return new OkResult();
@@ -92,11 +92,11 @@ namespace TravelTalkApi.Controllers
         
         [HttpDelete]
         [Authorize("Admin")]
-        public async Task<ActionResult> DeleteCategory(int categId)
+        public async Task<ActionResult> DeleteCategory( CategoryIdDTO body)
         {
             try
             {
-                var category = await _repository.Category.GetByIdAsync(categId);
+                var category = await _repository.Category.GetByIdAsync(body.CategoryId);
                 _repository.Category.Delete(category);
                 await _repository.SaveAsync();
 
