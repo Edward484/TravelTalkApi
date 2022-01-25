@@ -97,8 +97,8 @@ namespace TravelTalkApi.Controllers
             return new NoContentResult();
         }
 
-        [HttpDelete]
-        [Authorize("User")]
+        [HttpDelete("{userId:int}")]
+        [Authorize("Admin")]
         public async Task<ActionResult> DeleteUser(int userId)
         {
             try

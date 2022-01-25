@@ -43,13 +43,19 @@ namespace TravelTalkApi.Controllers
             _postService = postService;
         }
 
-        [HttpGet]
-        public async Task<ActionResult<List<PostDTO>>> GetPostsInTopicByTopicId(int id)
+        [HttpGet("{topicId:int}")]
+        //Todo modify to topicId
+        public async Task<ActionResult<List<PostDTO>>> GetPostsInTopicByTopicId(int topicId)
         {
             try
             {
-                var posts = await _repository.PostRepository.GetByTopicId(id);
-                return new OkObjectResult(posts);
+                var posts = await _repository.PostRepository.GetByTopicId(topicId);
+                List<PostDTO> listPostsDTO = new();
+                foreach(var post in posts)
+                {
+                    listPostsDTO.Add(new PostDTO(post));
+                }
+                return new OkObjectResult(listPostsDTO);
             }
             catch (Exception e)
             {
@@ -73,17 +79,17 @@ namespace TravelTalkApi.Controllers
 
         [HttpPatch("change")]
         [Authorize("User")]
-        public async Task<IActionResult> ChangePost(int postId, string content)
+        public async Task<IActionResult> ChangePost([FromBody]ChangePostContentDTO body)
         {
             try
             {
-                var (canAccess, post) = await _postAuthorPolicy.CanAccess(postId);
+                var (canAccess, post) = await _postAuthorPolicy.CanAccess(body.PostId);
                 if (!canAccess)
                 {
                     return new ForbidResult();
                 }
 
-                _repository.PostRepository.UpdateContent(postId, content);
+                _repository.PostRepository.UpdateContent(body.PostId, body.Content);
                 await _repository.SaveAsync();
                 return new OkResult();
             }
@@ -92,8 +98,7 @@ namespace TravelTalkApi.Controllers
                 return new NotFoundResult();
             }
         }
-        [HttpPatch]
-        [Authorize("User")]
+        [HttpPatch("{postId:int}")]
         public async Task<IActionResult> UpVotePost(int postId)
         {
             try
@@ -110,7 +115,7 @@ namespace TravelTalkApi.Controllers
             }
         }
         
-        [HttpDelete("current/{postId:int}")]
+        [HttpDelete("{postId:int}")]
         [Authorize("User")]
         public async Task<IActionResult> DeletePost(int postId)
         {

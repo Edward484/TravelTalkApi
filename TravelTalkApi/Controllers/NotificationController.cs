@@ -57,7 +57,7 @@ namespace TravelTalkApi.Controllers
             }
         }
 
-        [HttpPost]
+        [HttpPost("{postId:int}")]
         [Authorize("Admin, Mod")]
         public async Task<ActionResult> SendWarningNotificationToAuthor(int postId)
         {
@@ -73,7 +73,7 @@ namespace TravelTalkApi.Controllers
         }
 
 
-        [HttpPatch]
+        [HttpPatch("{notificationId:int}")]
         [Authorize("Admin")]
         public async Task<ActionResult> ChangeNotificationType(int notificationId)
         {
@@ -88,7 +88,7 @@ namespace TravelTalkApi.Controllers
             }
         }
 
-        [HttpDelete]
+        [HttpDelete("{notificationId:int}")]
         [Authorize("Admin")]
         public async Task<ActionResult> DeleteNotification(int notificationId)
         {
