@@ -44,7 +44,7 @@ namespace TravelTalkApi.Controllers
         }
 
         [HttpGet("{topicId:int}")]
-        //Todo modify to topicId
+        [Authorize("User")]
         public async Task<ActionResult<List<PostDTO>>> GetPostsInTopicByTopicId(int topicId)
         {
             try

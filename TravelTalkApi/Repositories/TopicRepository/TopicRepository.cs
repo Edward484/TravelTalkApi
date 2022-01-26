@@ -26,7 +26,7 @@ namespace TravelTalkApi.Repositories
         public Task<Topic> GetByIdAsync(int id, bool expanded)
         {
             var query = this._context.Topics.Where(topic => topic.TopicId == id);
-            return expanded ? query.Include("Posts").Include("Author").FirstAsync() : query.FirstAsync();
+            return expanded ? query.Include(topic => topic.Author).Include(topic => topic.Posts).ThenInclude(post => post.Author).FirstAsync() : query.FirstAsync();
         }
 
         public async Task<List<User>> GetParticipantsAsync(int topicId)

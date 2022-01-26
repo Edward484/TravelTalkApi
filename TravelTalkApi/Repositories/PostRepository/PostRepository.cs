@@ -20,7 +20,7 @@ namespace TravelTalkApi.Repositories
 
         public async Task<List<Post>> GetByTopicId(int topicId)
         {
-            return await this._context.Posts.Where(post => post.TopicId == topicId).ToListAsync();
+            return await this._context.Posts.Include(post => post.Author).Where(post => post.TopicId == topicId).ToListAsync();
         }
 
         public Task<Post> GetByIdAsync(int postId, bool expanded)
