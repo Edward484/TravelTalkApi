@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using TravelTalkApi.Entities;
+using TravelTalkApi.Entities.DTO;
 
 namespace TravelTalkApi.Models.DTO.Notification
 {
@@ -7,13 +8,13 @@ namespace TravelTalkApi.Models.DTO.Notification
     {
         public NotificationType Type { get; set; }
         public Entities.Post Post { get; set; }
-        public Topic Topic { get; set; }
+        public CategoryTopicDTO Topic { get; set; }
 
         public NotificationDTO(Entities.Notification notification)
         {
             Type = notification.Type;
             Post = notification.Post;
-            Topic = notification.Topic;
+            Topic = new CategoryTopicDTO(notification.Topic);
         }
     }
 }

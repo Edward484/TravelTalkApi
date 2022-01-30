@@ -5,7 +5,7 @@ namespace TravelTalkApi.Services.PostService
 {
     public interface IPostService
     {
-        public Task<PostDTO> CreatePostService(CreatePostDTO body);
+        public Task<PostDTO> CreatePost(CreatePostDTO body);
 
     }
 }

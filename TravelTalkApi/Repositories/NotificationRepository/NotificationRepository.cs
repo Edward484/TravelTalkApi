@@ -21,7 +21,8 @@ namespace TravelTalkApi.Repositories
             ValueComparer<User> comparer = new ValueComparer<User>((a, b) => a.Id == b.Id,
                 usr => usr.GetHashCode());
             return await _context.Notifications.Where(notification =>
-                    notification.Receivers.Contains(user, comparer))
+                    notification.Receivers.Contains(user, comparer)).Include(notification => notification.Post)
+                .Include(notification => notification.Topic)
                 .ToListAsync();
         }
 

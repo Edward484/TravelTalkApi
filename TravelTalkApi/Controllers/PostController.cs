@@ -69,7 +69,7 @@ namespace TravelTalkApi.Controllers
         {
             try
             {
-                return await _postService.CreatePostService(body);
+                return await _postService.CreatePost(body);
             }
             catch (Exception e)
             {

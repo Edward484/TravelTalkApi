@@ -27,7 +27,7 @@ namespace TravelTalkApi.Services.PostService
         }
         
         
-        public async Task<PostDTO> CreatePostService(CreatePostDTO body)
+        public async Task<PostDTO> CreatePost(CreatePostDTO body)
         {
             var authorId = int.Parse(await _userService.GetCurrentUserId());
             var author = await _repository.User.GetByIdComplete(authorId);
