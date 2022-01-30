@@ -115,8 +115,25 @@ namespace TravelTalkApi.Controllers
             }
         }
         
+        [HttpPatch("DownVote/{postId:int}")]
+        public async Task<IActionResult> DownVotePost(int postId)
+        {
+            try
+            {
+                var post = await _repository.PostRepository.GetByIdAsync(postId);
+                post.UpvoteCount--;
+                await _repository.SaveAsync();
+                _notificationService.SendUpvoteNotification(postId);
+                return new OkResult();
+            }
+            catch (Exception e)
+            {
+                return new NotFoundResult();
+            }
+        }
+        
         [HttpDelete("{postId:int}")]
-        [Authorize("User")]
+        [Authorize( "User")]
         public async Task<IActionResult> DeletePost(int postId)
         {
             var (canAccess, post) = await _postAuthorPolicy.CanAccess(postId);
