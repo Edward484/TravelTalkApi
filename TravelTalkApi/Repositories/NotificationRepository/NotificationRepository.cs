@@ -18,12 +18,14 @@ namespace TravelTalkApi.Repositories
 
         public async Task<List<Notification>> GetByUser(User user)
         {
-            ValueComparer<User> comparer = new ValueComparer<User>((a, b) => a.Id == b.Id,
+            ValueComparer<User> comparer = new ValueComparer<User>((a, b) => a != null && b != null && a.Id == b.Id,
                 usr => usr.GetHashCode());
-            return await _context.Notifications.Where(notification =>
-                    notification.Receivers.Contains(user, comparer)).Include(notification => notification.Post)
-                .Include(notification => notification.Topic)
+            var a = _context.Notifications.Include(notification => notification.Receivers);
+            var b = a.Where(notification => notification.Receivers.Contains(user));
+            var c = b.Include(notification => notification.Post);
+            var d = c.Include(notification => notification.Topic)
                 .ToListAsync();
+            return await d;
         }
 
         public async Task<Notification> GetById(int id)

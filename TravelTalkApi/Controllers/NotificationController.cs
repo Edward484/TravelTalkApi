@@ -58,7 +58,7 @@ namespace TravelTalkApi.Controllers
         }
 
         [HttpPost("{postId:int}")]
-        [Authorize("Admin, Mod")]
+        [Authorize("Admin")]
         public async Task<ActionResult> SendWarningNotificationToAuthor(int postId)
         {
             try
